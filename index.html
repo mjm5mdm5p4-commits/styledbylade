@@ -1,304 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STYLEDBYLADE - Fashion That Never Fades</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap');
-        
-        :root {
-            --burgundy: #4A0D1A;
-            --gold: #D4AF37;
-            --dark: #111111;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0a0a;
-            color: #eee;
-            line-height: 1.6;
-        }
-        
-        header {
-            background: rgba(10,10,10,0.95);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 5%;
-            border-bottom: 1px solid rgba(212,175,55,0.2);
-        }
-        
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--gold);
-        }
-        
-        .logo img { 
-            height: 55px; 
-            margin-right: 10px; 
-            max-width: 180px;
-            object-fit: contain;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: #ddd;
-            text-decoration: none;
-            font-weight: 400;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover { color: var(--gold); }
-        
-        .cart {
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-        
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(74,13,26,0.75), rgba(74,13,26,0.75)), url('https://picsum.photos/id/1015/2000/1200') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-        
-        .hero-content p {
-            font-size: 1.35rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        .btn {
-            background: var(--gold);
-            color: var(--burgundy);
-            padding: 14px 45px;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background: white;
-            transform: scale(1.03);
-        }
-        
-        section {
-            padding: 100px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: var(--gold);
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        
-        .product-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        
-        .product-card img {
-            width: 100%;
-            height: 520px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .product-card:hover img {
-            transform: scale(1.08);
-        }
-        
-        .product-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 2rem 1.5rem 1.5rem;
-            color: white;
-        }
-        
-        footer {
-            background: var(--dark);
-            padding: 4rem 5% 2rem;
-            text-align: center;
-            border-top: 1px solid #333;
-        }
-        
-        /* Hide broken image placeholders */
-        img[alt="STYLEDBYLADE"] {
-            background: #4A0D1A;
-            padding: 8px;
-            border-radius: 4px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyledByLade | Fashion & Elegance</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    color:#222;
+    background:#fff;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-family:'Playfair Display',serif;
+    font-size:2rem;
+    font-weight:700;
+}
+
+nav a{
+    text-decoration:none;
+    color:#222;
+    margin-left:20px;
+    font-weight:500;
+}
+
+.hero{
+    height:90vh;
+    background:
+    linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),
+    url('images/hero.jpg');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+.hero-content h1{
+    font-family:'Playfair Display',serif;
+    font-size:4rem;
+    margin-bottom:15px;
+}
+
+.hero-content p{
+    font-size:1.1rem;
+    max-width:600px;
+    margin:auto;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:14px 30px;
+    background:black;
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.collection{
+    padding:80px 8%;
+    text-align:center;
+}
+
+.collection h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:40px;
+    font-size:2.5rem;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+}
+
+.card h3{
+    padding:15px;
+}
+
+.about{
+    padding:80px 8%;
+    text-align:center;
+    background:#f9f9f9;
+}
+
+.about h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:20px;
+}
+
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    padding:15px 18px;
+    border-radius:50%;
+    font-size:22px;
+}
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <!-- Your original logo as fallback -->
-                <img src="https://i.imgur.com/9DZvD.png" alt="STYLEDBYLADE" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span style="display:none; font-size:1.8rem;">STYLEDBYLADE</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#shop">SHOP</a></li>
-                <li><a href="#collections">COLLECTIONS</a></li>
-                <li><a href="#about">ABOUT</a></li>
-            </ul>
-            <div class="cart" onclick="toggleCart()">🛒 <span id="cart-count" style="background:var(--gold);color:#4A0D1A;padding:2px 7px;border-radius:50%;font-size:0.8rem;">0</span></div>
-        </nav>
-    </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <img src="https://i.imgur.com/9DZvD.png" style="max-width:380px; margin-bottom:2rem; border-radius:8px;" alt="STYLEDBYLADE" onerror="this.style.display='none';">
-            <h1>Fashion That Never Fades</h1>
-            <p>Timeless Nigerian luxury</p>
-            <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">EXPLORE COLLECTION</button>
-        </div>
-    </section>
+<header>
+    <div class="logo">StyledByLade</div>
 
-    <!-- Shop Section -->
-    <section id="shop">
-        <h2 class="section-title">Signature Collection</h2>
-        <div class="products-grid" id="products"></div>
-    </section>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Cart 🛒</a>
+    </nav>
+</header>
 
-    <!-- Cart Modal -->
-    <div id="cart-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:2000;align-items:center;justify-content:center;">
-        <div style="background:#1a1a1a;width:90%;max-width:500px;padding:2rem;border-radius:8px;max-height:85vh;overflow:auto;color:white;">
-            <h2>Your Cart (<span id="modal-cart-count">0</span>)</h2>
-            <div id="cart-items" style="margin:1.5rem 0;"></div>
-            <div id="cart-total" style="font-size:1.4rem;text-align:right;margin:1rem 0;font-weight:bold;">Total: ₦0</div>
-            <button onclick="checkout()" class="btn" style="width:100%;background:var(--gold);color:#4A0D1A;">ORDER VIA WHATSAPP</button>
-            <button onclick="toggleCart()" style="width:100%;margin-top:10px;padding:14px;background:#333;border:none;color:white;">Close</button>
-        </div>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Where Elegance Meets Confidence</h1>
+        <p>
+            Discover beautifully crafted fashion pieces designed
+            to bring out your confidence and unique style.
+        </p>
+
+        <a href="#" class="btn">Shop Collection</a>
     </div>
+</section>
 
-    <script>
-        let cart = [];
-        const whatsappNumber = "2348064905466";
+<section class="collection">
+    <h2>Featured Collection</h2>
 
-        const products = [
-            {id:1, name:"Emerald Silk Gown", price:85000, img:"https://picsum.photos/id/1015/800/1000", desc:"Elegant silk gown"},
-            {id:2, name:"Modern Ankara Suit", price:65000, img:"https://picsum.photos/id/1027/800/1000", desc:"Bold contemporary Ankara"},
-            {id:3, name:"Velvet Luxe Set", price:72000, img:"https://picsum.photos/id/106/800/1000", desc:"Rich velvet evening set"},
-            {id:4, name:"Royal Brocade Dress", price:78000, img:"https://picsum.photos/id/201/800/1000", desc:"Timeless brocade"}
-        ];
+    <div class="grid">
 
-        function renderProducts() {
-            const container = document.getElementById('products');
-            container.innerHTML = products.map(p => `
-                <div class="product-card" onclick="quickAddToCart(${p.id})">
-                    <img src="${p.img}" alt="${p.name}">
-                    <div class="product-overlay">
-                        <h3>${p.name}</h3>
-                        <p style="margin:8px 0;">${p.desc}</p>
-                        <div style="color:var(--gold);font-weight:600;">₦${p.price.toLocaleString()}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
+        <div class="card">
+            <img src="images/fashion1.jpg" alt="">
+            <h3>Luxury Gown</h3>
+        </div>
 
-        function quickAddToCart(id) {
-            const product = products.find(p => p.id === id);
-            if (product) {
-                cart.push({...product, size: "M"});
-                document.getElementById('cart-count').textContent = cart.length;
-                alert(`${product.name} added to cart!`);
-            }
-        }
+        <div class="card">
+            <img src="images/fashion2.jpg" alt="">
+            <h3>Elegant Dress</h3>
+        </div>
 
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-            if (modal.style.display === 'flex') renderCart();
-        }
+        <div class="card">
+            <img src="images/fashion3.jpg" alt="">
+            <h3>Custom Design</h3>
+        </div>
 
-        function renderCart() {
-            let html = '';
-            let total = 0;
-            cart.forEach((item) => {
-                total += item.price;
-                html += `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #333;">
-                    <div>${item.name} <small>(${item.size})</small></div>
-                    <div>₦${item.price.toLocaleString()}</div>
-                </div>`;
-            });
-            document.getElementById('cart-items').innerHTML = html || '<p>Your cart is empty.</p>';
-            document.getElementById('cart-total').textContent = `Total: ₦${total.toLocaleString()}`;
-            document.getElementById('modal-cart-count').textContent = cart.length;
-        }
+    </div>
+</section>
 
-        function checkout() {
-            if (cart.length === 0) return alert("Cart is empty!");
-            
-            let msg = "Hello STYLEDBYLADE!%0AI want to order:%0A%0A";
-            let total = 0;
-            cart.forEach(item => {
-                msg += `• ${item.name} (${item.size}) - ₦${item.price.toLocaleString()}%0A`;
-                total += item.price;
-            });
-            msg += `%0ATotal: ₦${total.toLocaleString()}%0A%0ADelivery Address: [Enter address]%0APhone: [Your number]%0A`;
-            
-            window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
-            
-            setTimeout(() => {
-                cart = [];
-                document.getElementById('cart-count').textContent = '0';
-                toggleCart();
-            }, 1500);
-        }
+<section class="about">
+    <h2>About StyledByLade</h2>
 
-        // Init
-        renderProducts();
-    </script>
+    <p>
+        StyledByLade is dedicated to creating elegant and timeless
+        fashion pieces that empower women to express confidence,
+        beauty, and sophistication.
+    </p>
+</section>
+
+<footer>
+    <p>© 2026 StyledByLade. All Rights Reserved.</p>
+</footer>
+
+<a class="whatsapp"
+href="https://wa.me/2347000000000">
+💬
+</a>
+
 </body>
 </html>
