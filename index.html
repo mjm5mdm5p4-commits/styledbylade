@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STYLEDBYLADE - Fashion That Never Fades</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+        
+        :root {
+            --burgundy: #4A0D1A;
+            --gold: #D4AF37;
+            --dark: #1A1A1A;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f8f8;
+        }
+        
+        header {
+            background: var(--burgundy);
+            color: white;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .logo img { height: 60px; margin-right: 12px; }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--gold); }
+        
+        .cart {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.4rem;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(74, 13, 26, 0.85), rgba(74, 13, 26, 0.85)), url('https://picsum.photos/id/1015/2000/1200') center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .hero-content { max-width: 800px; padding: 2rem; }
+        
+        .hero-logo { max-width: 420px; margin: 0 auto 2rem; }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--burgundy);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover { transform: translateY(-10px); }
+        
+        .product-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--burgundy);
+        }
+        
+        .price {
+            color: var(--gold);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .add-to-cart {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 12px;
+            background: var(--burgundy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Product Modal */
+        #product-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            width: 90%;
+            border-radius: 12px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-height: 90vh;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: #ddd;
+            padding: 4rem 5% 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://i.imgur.com/9DZvD.png" alt="STYLEDBYLADE Logo" onerror="this.src='https://via.placeholder.com/150x60/4A0D1A/D4AF37?text=STYLEDBYLADE'">
+                STYLEDBYLADE
+            </div>
+            <ul class="nav-links">
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="cart" onclick="toggleCart()">🛒 <span id="cart-count" style="background: var(--gold); color: #4A0D1A; border-radius: 50%; padding: 2px 8px; font-size: 0.8rem;">0</span></div>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="https://i.imgur.com/9DZvD.png" class="hero-logo" alt="STYLEDBYLADE Logo" onerror="this.src='https://via.placeholder.com/420x200/4A0D1A/D4AF37?text=STYLEDBYLADE'">
+            <h1>Fashion That Never Fades</h1>
+            <p style="font-size:1.5rem; margin-bottom:2rem;">Timeless Nigerian luxury</p>
+            <button class="add-to-cart" style="background:var(--gold); color:var(--burgundy); font-size:1.2rem; padding:16px 50px;" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">Shop Collection</button>
+        </div>
+    </section>
+
+    <!-- SHOP -->
+    <section id="shop" style="padding:5rem 5%;">
+        <h2 class="section-title">Featured Collection</h2>
+        <div class="products-grid" id="products">
+            <!-- Products populated by JS -->
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div id="product-modal">
+        <div class="modal-content">
+            <img id="modal-image" style="width:100%; height:100%; object-fit:cover;" alt="">
+            <div style="padding:2rem;">
+                <h2 id="modal-name"></h2>
+                <p id="modal-desc"></p>
+                <div class="price" id="modal-price"></div>
+                
+                <div style="margin:1.5rem 0;">
+                    <strong>Size:</strong><br>
+                    <button onclick="selectSize(this)" class="size-btn" style="padding:10px 16px; margin:5px; border:2px solid #ddd;">S</button>
+                    <button onclick="selectSize(this)" class="size-btn" style="padding:10px 16px; margin:5px; border:2px solid #ddd;">M</button>
+                    <button onclick="selectSize(this)" class="size-btn" style="padding:10px 16px; margin:5px; border:2px solid #ddd;">L</button>
+                    <button onclick="selectSize(this)" class="size-btn" style="padding:10px 16px; margin:5px; border:2px solid #ddd;">XL</button>
+                </div>
+                
+                <button onclick="addCurrentToCart()" style="width:100%; padding:16px; background:var(--burgundy); color:white; border:none; border-radius:8px; font-size:1.1rem;">Add to Cart</button>
+                <button onclick="closeModal()" style="width:100%; margin-top:10px; padding:12px; background:#eee;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:white; max-width:500px; width:90%; padding:2rem; border-radius:12px; max-height:80vh; overflow:auto;">
+            <h2>Your Cart (<span id="modal-cart-count">0</span>)</h2>
+            <div id="cart-items"></div>
+            <div style="margin-top:1.5rem; font-size:1.3rem; text-align:right; font-weight:bold;" id="cart-total">Total: ₦0</div>
+            <button onclick="checkout()" style="width:100%; margin-top:1rem; padding:16px; background:var(--gold); color:var(--burgundy); border:none; font-size:1.1rem; border-radius:8px;">Order via WhatsApp 💬</button>
+            <button onclick="toggleCart()" style="width:100%; margin-top:0.5rem; padding:12px; background:#ddd; border:none;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let currentProduct = null;
+        let selectedSize = null;
+
+        const products = [
+            { id: 0, name: "Emerald Silk Gown", price: 85000, img: "https://picsum.photos/id/1015/600/700", desc: "Premium silk with elegant drape. Perfect for special occasions and evening events." },
+            { id: 1, name: "Modern Ankara Suit", price: 65000, img: "https://picsum.photos/id/1027/600/700", desc: "Handcrafted Ankara with contemporary tailoring. Bold and stylish." },
+            { id: 2, name: "Velvet Evening Set", price: 48000, img: "https://picsum.photos/id/106/600/700", desc: "Luxurious velvet two-piece set. Comfort meets elegance." },
+            { id: 3, name: "Royal Brocade Dress", price: 72000, img: "https://picsum.photos/id/201/600/700", desc: "Traditional brocade reimagined for the modern woman. Timeless appeal." }
+        ];
+
+        function renderProducts() {
+            const container = document.getElementById('products');
+            container.innerHTML = '';
+            products.forEach(product => {
+                const card = `
+                    <div class="product-card">
+                        <img src="${product.img}" alt="${product.name}" onclick="showProductDetail(${product.id})">
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p>${product.desc.substring(0, 65)}...</p>
+                            <div class="price">₦${product.price.toLocaleString()}</div>
+                            <button class="add-to-cart" onclick="quickAddToCart(${product.id}); event.stopImmediatePropagation()">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function showProductDetail(id) {
+            currentProduct = products.find(p => p.id === id);
+            if (!currentProduct) return;
+            
+            document.getElementById('modal-image').src = currentProduct.img;
+            document.getElementById('modal-name').textContent = currentProduct.name;
+            document.getElementById('modal-desc').textContent = currentProduct.desc;
+            document.getElementById('modal-price').textContent = `₦${currentProduct.price.toLocaleString()}`;
+            document.getElementById('product-modal').style.display = 'flex';
+            selectedSize = null;
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+
+        function selectSize(btn) {
+            document.querySelectorAll('.size-btn').forEach(b => b.style.borderColor = '#ddd');
+            btn.style.borderColor = 'var(--gold)';
+            selectedSize = btn.textContent;
+        }
+
+        function addCurrentToCart() {
+            if (!currentProduct) return;
+            if (!selectedSize) {
+                alert("Please select a size!");
+                return;
+            }
+            const itemWithSize = {...currentProduct, size: selectedSize};
+            cart.push(itemWithSize);
+            updateCartCount();
+            closeModal();
+            alert(`${currentProduct.name} (${selectedSize}) added to cart!`);
+        }
+
+        function quickAddToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                cart.push({...product, size: "M"});
+                updateCartCount();
+            }
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            if (modal.style.display === 'none' || modal.style.display === '') {
+                renderCart();
+                modal.style.display = 'flex';
+            } else {
+                modal.style.display = 'none';
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.style = 'display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee; align-items:center;';
+                div.innerHTML = `
+                    <div>${item.name} <small>(${item.size || 'M'})</small></div>
+                    <div>₦${item.price.toLocaleString()}</div>
+                `;
+                container.appendChild(div);
+            });
+            
+            document.getElementById('cart-total').textContent = `Total: ₦${total.toLocaleString()}`;
+            document.getElementById('modal-cart-count').textContent = cart.length;
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            
+            let message = "Hello STYLEDBYLADE!%0AI would like to order:%0A%0A";
+            let total = 0;
+            
+            cart.forEach(item => {
+                message += `• ${item.name} (${item.size || 'M'}) - ₦${item.price.toLocaleString()}\n`;
+                total += item.price;
+            });
+            
+            message += `%0A%0ATotal: ₦${total.toLocaleString()}\n`;
+            message += `%0ADelivery address: [Please enter your full address here]%0A`;
+            message += `Phone: [Your phone number]%0A`;
+            message += `%0APreferred delivery date/time:%0A`;
+            message += `%0AThank you! I look forward to your confirmation.`;
+            
+            const whatsappUrl = `https://wa.me/2348064905466?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            setTimeout(() => {
+                cart = [];
+                updateCartCount();
+                toggleCart();
+            }, 2000);
+        }
+
+        // Initialize
+        renderProducts();
+        console.log('%c✅ STYLEDBYLADE website is ready with cart & WhatsApp ordering!', 'color: #D4AF37; font-size: 16px; font-weight: bold');
+    </script>
+</body>
+</html>
