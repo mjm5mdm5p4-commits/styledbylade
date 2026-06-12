@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyledByLade | Fashion</title>
+<title>StyledByLade | Luxury Fashion</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -19,6 +19,39 @@
 }
 
 body { background: var(--light); color: var(--text); font-family: 'Poppins', sans-serif; }
+
+/* ========== SUPER VISIBLE ADMIN BANNER (TOP) ========== */
+.admin-top-banner {
+  background: linear-gradient(135deg, #c9a84c, #d4af37);
+  padding: 14px 20px;
+  text-align: center;
+  border-bottom: 3px solid #fff3c9;
+  position: relative;
+  z-index: 1001;
+}
+.admin-top-banner a {
+  color: #0a0a0a;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.15);
+  padding: 8px 28px;
+  border-radius: 60px;
+  transition: all 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+.admin-top-banner a:hover {
+  background: rgba(0,0,0,0.3);
+  transform: scale(1.02);
+  letter-spacing: 3px;
+}
+.admin-top-banner span {
+  font-size: 24px;
+}
 
 header {
   background: var(--black);
@@ -66,7 +99,7 @@ nav a:hover { color: var(--gold); background: rgba(201,168,76,0.1); }
   margin-left: 3px;
 }
 
-/* HIGHLY VISIBLE ADMIN BUTTON IN NAVIGATION */
+/* GOLD BUTTON IN NAVIGATION */
 .admin-nav-btn {
   background: linear-gradient(135deg, #f5d97a, #c9a84c) !important;
   color: #000000 !important;
@@ -86,7 +119,7 @@ nav a:hover { color: var(--gold); background: rgba(201,168,76,0.1); }
 .hero {
   background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4)),
               url("https://images.unsplash.com/photo-1496747611176-843222e1e57c") center/cover;
-  height: 90vh;
+  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -326,24 +359,26 @@ footer {
 }
 footer span { color: var(--gold); }
 
-/* BIG VISIBLE ADMIN LINK IN FOOTER */
+/* SUPER VISIBLE ADMIN BUTTON IN FOOTER */
 .footer-admin-link {
   display: inline-block;
-  margin-top: 18px;
+  margin-top: 22px;
   background: linear-gradient(135deg, #c9a84c, #b8922e);
   color: #000000 !important;
-  padding: 10px 28px !important;
-  border-radius: 50px;
+  padding: 12px 32px !important;
+  border-radius: 60px;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 2px;
   transition: all 0.2s;
-  border: 1px solid #ffdf99;
+  border: 2px solid #ffdf99;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 .footer-admin-link:hover {
   background: linear-gradient(135deg, #f0d080, #c9a84c);
   transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(201,168,76,0.5);
 }
 
 #toast {
@@ -363,12 +398,26 @@ footer span { color: var(--gold); }
 }
 
 @media (max-width: 650px) {
+  .admin-top-banner a { font-size: 14px; padding: 6px 16px; }
+  .admin-top-banner span { font-size: 18px; }
   header { flex-direction: column; text-align: center; }
   nav { justify-content: center; }
+  .hero h1 { font-size: 36px; }
 }
 </style>
 </head>
 <body>
+
+<!-- ============================================ -->
+<!-- 🔐 ULTRA VISIBLE ADMIN BANNER - TOP OF PAGE 🔐 -->
+<!-- ============================================ -->
+<div class="admin-top-banner">
+  <a href="admin.html">
+    <span>🔐</span> 
+    ⚡ ADMIN DASHBOARD - CLICK HERE TO MANAGE STORE ⚡ 
+    <span>👑</span>
+  </a>
+</div>
 
 <header>
   <div class="logo">StyledByLade</div>
@@ -376,8 +425,8 @@ footer span { color: var(--gold); }
     <a href="#home">HOME</a>
     <a href="#shop">SHOP</a>
     <a href="#cart">CART 🛒<span class="cart-count" id="cartCount">0</span></a>
-    <!-- 👑 SUPER VISIBLE ADMIN BUTTON - RIGHT HERE IN THE MENU 👑 -->
-    <a href="admin.html" class="admin-nav-btn">👑 ADMIN DASHBOARD</a>
+    <!-- GOLD ADMIN BUTTON IN MENU -->
+    <a href="admin.html" class="admin-nav-btn">👑 ADMIN PANEL</a>
   </nav>
 </header>
 
@@ -429,8 +478,8 @@ footer span { color: var(--gold); }
 <footer>
   © 2026 <span>StyledByLade</span> — All Rights Reserved
   <br><br>
-  <!-- 🟢 BIG VISIBLE ADMIN BUTTON IN FOOTER 🟢 -->
-  <a href="admin.html" class="footer-admin-link">🔐 GO TO ADMIN PANEL 🔐</a>
+  <!-- 🔐 HUGE ADMIN BUTTON IN FOOTER - CANNOT MISS 🔐 -->
+  <a href="admin.html" class="footer-admin-link">🔐 GO TO ADMIN DASHBOARD 🔐</a>
 </footer>
 
 <div id="toast"></div>
@@ -457,11 +506,21 @@ footer span { color: var(--gold); }
           ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
           <img src="${p.img}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f'">
           <div class="product-info">
-            <h3>${p.name}</h3>
+            <h3>${escapeHtml(p.name)}</h3>
             <p class="product-price">₦${p.price.toLocaleString()}</p>
-            <button class="btn-cart" onclick="addCart('${p.name}', ${p.price})">Add To Cart</button>
+            <button class="btn-cart" onclick="addCart('${escapeHtml(p.name)}', ${p.price})">Add To Cart</button>
           </div>
         </div>`;
+    });
+  }
+  
+  function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if(m === '&') return '&amp;';
+      if(m === '<') return '&lt;';
+      if(m === '>') return '&gt;';
+      return m;
     });
   }
 
@@ -482,7 +541,7 @@ footer span { color: var(--gold); }
     } else {
       items.innerHTML = '';
       cart.forEach((p, i) => {
-        items.innerHTML += `<p><span>${p.name}</span><span>₦${p.price.toLocaleString()} <span style="color:#c00;cursor:pointer;margin-left:10px" onclick="removeCart(${i})">✕</span></span></p>`;
+        items.innerHTML += `<p><span>${escapeHtml(p.name)}</span><span>₦${p.price.toLocaleString()} <span style="color:#c00;cursor:pointer;margin-left:10px" onclick="removeCart(${i})">✕</span></span></p>`;
         total += p.price;
       });
     }
@@ -512,7 +571,7 @@ footer span { color: var(--gold); }
     localStorage.setItem('sbl_orders', JSON.stringify(orders));
 
     window.open('https://wa.me/2347061172586?text=' + message, '_blank');
-    showToast('Order placed! Admin can view it.');
+    showToast('✓ Order sent! Admin can view orders.');
   }
 
   function showToast(msg) {
@@ -521,8 +580,24 @@ footer span { color: var(--gold); }
     t.style.display = 'block';
     setTimeout(() => t.style.display = 'none', 2500);
   }
-
-  renderProducts();
+  
+  // Save cart to localStorage for persistence
+  function persistCart() {
+    localStorage.setItem('sbl_cart_temp', JSON.stringify(cart));
+  }
+  setInterval(persistCart, 1000);
+  
+  window.addEventListener('load', () => {
+    renderProducts();
+    const savedCart = localStorage.getItem('sbl_cart_temp');
+    if(savedCart) {
+      try {
+        cart = JSON.parse(savedCart);
+        displayCart();
+        document.getElementById('cartCount').textContent = cart.length;
+      } catch(e) {}
+    }
+  });
 </script>
 </body>
 </html>
