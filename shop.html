@@ -1,75 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyledByLade | Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyledByLade | Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <div class="logo">StyledByLade</div>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="shop.html" class="active">SHOP</a>
+            <a href="cart.html">CART <span class="cart-count" id="cartCount">0</span></a>
+        </nav>
+    </header>
 
-<header>
-  <div class="logo">StyledByLade</div>
-  <nav>
-    <a href="index.html">HOME</a>
-    <a href="shop.html" class="active">SHOP</a>
-    <a href="cart.html">CART 🛒<span class="cart-count" id="cartCount">0</span></a>
-  </nav>
-</header>
+    <section class="section">
+        <p class="section-tag">✦ Curated For You ✦</p>
+        <h2>Our Collection</h2>
 
-<section class="section">
-  <p class="section-tag">✦ Curated For You ✦</p>
-  <h2>Our Collection</h2>
-  <div class="products" id="productsGrid"></div>
-</section>
+        <div class="filter-buttons">
+            <button onclick="filterProducts('all')" class="btn-gold active">All</button>
+            <button onclick="filterProducts('bridal')" class="btn-gold">Bridal</button>
+            <button onclick="filterProducts('evening')" class="btn-gold">Evening</button>
+        </div>
 
-<footer>
-  © 2026 <span>StyledByLade</span> — All Rights Reserved
-</footer>
+        <div class="products" id="productsGrid"></div>
+    </section>
 
-<script src="cart-script.js"></script>
-<script>
-  const defaultProducts = [
-    { id:1, name:"Luxury Gown",   price:25000, img:"https://images.unsplash.com/photo-1496747611176-843222e1e57c", badge:"Bestseller" },
-    { id:2, name:"Elegant Dress", price:18000, img:"https://images.unsplash.com/photo-1483985988355-763728e1935b", badge:"New" },
-    { id:3, name:"Custom Outfit", price:35000, img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f", badge:"Premium" }
-  ];
+    <footer>
+        © 2026 StyledByLade — All Rights Reserved | Ibadan, Nigeria
+    </footer>
 
-  function getProducts() {
-    const saved = localStorage.getItem('sbl_products');
-    return saved ? JSON.parse(saved) : defaultProducts;
-  }
+    <script src="cart-script.js"></script>
+    <script>
+        const defaultProducts = [
+            { id:1, name:"Emerald Luxury Gown", price:450000, img:"https://picsum.photos/id/1015/600/800", badge:"Bestseller", category:"bridal" },
+            { id:2, name:"Crimson Evening Dress", price:380000, img:"https://picsum.photos/id/1027/600/800", badge:"New", category:"evening" },
+            { id:3, name:"Ivory Bridal Set", price:520000, img:"https://picsum.photos/id/106/600/800", badge:"Premium", category:"bridal" },
+            { id:4, name:"Royal Purple Gown", price:420000, img:"https://picsum.photos/id/201/600/800", badge:"", category:"evening" }
+        ];
 
-  function renderProducts() {
-    const products = getProducts();
-    const grid = document.getElementById('productsGrid');
-    grid.innerHTML = '';
-    products.forEach(p => {
-      grid.innerHTML += `
-        <div class="product">
-          ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-          <img src="${p.img}" alt="${p.name}">
-          <div class="product-info">
-            <h3>${escapeHtml(p.name)}</h3>
-            <p class="product-price">₦${p.price.toLocaleString()}</p>
-            <button class="btn-cart" onclick="addCart(${p.id}, '${escapeHtml(p.name)}', ${p.price})">Add To Cart</button>
-          </div>
-        </div>`;
-    });
-  }
+        let currentFilter = 'all';
 
-  function escapeHtml(str) {
-    if(!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if(m === '&') return '&amp;';
-      if(m === '<') return '&lt;';
-      if(m === '>') return '&gt;';
-      return m;
-    });
-  }
+        function filterProducts(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-buttons button').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase() === cat || (cat === 'all' && btn.textContent === 'All'));
+            });
+            renderProducts();
+        }
 
-  renderProducts();
-</script>
+        function renderProducts() {
+            const products = getProducts();
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            products.filter(p => currentFilter === 'all' || p.category === currentFilter).forEach(p => {
+                grid.innerHTML += `
+                    <div class="product">
+                        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+                        <img src="${p.img}" alt="${p.name}" loading="lazy">
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <p class="product-price">₦${p.price.toLocaleString()}</p>
+                            <button class="btn-cart" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${p.price})">Add to Cart</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function getProducts() {
+            const saved = localStorage.getItem('sbl_products');
+            return saved ? JSON.parse(saved) : defaultProducts;
+        }
+
+        // Initialize
+        renderProducts();
+        updateCartCount();
+    </script>
 </body>
 </html>
