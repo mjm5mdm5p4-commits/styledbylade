@@ -1,92 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyledByLade | Cart</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyledByLade | Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <div class="logo">StyledByLade</div>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="shop.html">SHOP</a>
+            <a href="cart.html" class="active">CART <span class="cart-count" id="cartCount">0</span></a>
+        </nav>
+    </header>
 
-<header>
-  <div class="logo">StyledByLade</div>
-  <nav>
-    <a href="index.html">HOME</a>
-    <a href="shop.html">SHOP</a>
-    <a href="cart.html" class="active">CART 🛒<span class="cart-count" id="cartCount">0</span></a>
-  </nav>
-</header>
+    <section class="section">
+        <p class="section-tag">✦ Your Cart ✦</p>
+        <h2>Shopping Cart</h2>
+        <div id="cartItems" class="cart-items"></div>
+        
+        <div class="cart-total">
+            <strong>Total: <span id="total">₦0</span></strong>
+        </div>
 
-<section class="cart-section">
-  <h2>Your Cart</h2>
-  <div class="cart-box">
-    <div id="cartItems"><p class="cart-empty">Your cart is empty</p></div>
-    <h3 id="total">Total: ₦0</h3>
-    <input id="name" placeholder="Full Name">
-    <input id="phone" placeholder="Phone Number">
-    <textarea id="address" placeholder="Delivery Address"></textarea>
-    <button class="btn-gold" style="width:100%;margin-top:10px" onclick="sendOrder()">
-      ORDER VIA WHATSAPP
-    </button>
-  </div>
-</section>
+        <div style="text-align:center; margin-top:2rem;">
+            <button onclick="checkoutWhatsApp()" class="btn-gold" style="padding:1rem 3rem; font-size:1.1rem;">Checkout via WhatsApp</button>
+            <button onclick="clearCart()" style="margin-left:1rem; background:#ccc; color:#333;">Clear Cart</button>
+        </div>
+    </section>
 
-<footer>
-  © 2026 <span>StyledByLade</span> — All Rights Reserved
-</footer>
+    <footer>
+        © 2026 StyledByLade — All Rights Reserved
+    </footer>
 
-<div id="toast"></div>
-
-<script src="cart-script.js"></script>
-<script>
-  function displayCart() {
-    const items = document.getElementById('cartItems');
-    let total = 0;
-    if (cart.length === 0) {
-      items.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-    } else {
-      items.innerHTML = '';
-      cart.forEach((p, i) => {
-        items.innerHTML += `<p><span>${escapeHtml(p.name)}</span><span>₦${p.price.toLocaleString()} <span style="color:#c00;cursor:pointer;margin-left:10px" onclick="removeCart(${i})">✕</span></span></p>`;
-        total += p.price;
-      });
-    }
-    document.getElementById('total').textContent = 'Total: ₦' + total.toLocaleString();
-  }
-
-  function removeCart(i) {
-    cart.splice(i, 1);
-    displayCart();
-    updateCartCount();
-    saveCart();
-  }
-
-  function sendOrder() {
-    if (cart.length === 0) { showToast('Your cart is empty!'); return; }
-    const name    = document.getElementById('name').value;
-    const phone   = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
-    if (!name || !phone || !address) { showToast('Please fill all fields!'); return; }
-
-    let message = `Hello StyledByLade!%0A%0ACustomer: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0AOrder:%0A`;
-    let total = 0;
-    cart.forEach(p => { message += `${p.name} - ₦${p.price.toLocaleString()}%0A`; total += p.price; });
-    message += `%0ATotal: ₦${total.toLocaleString()}`;
-
-    const orders = JSON.parse(localStorage.getItem('sbl_orders') || '[]');
-    orders.push({ name, phone, address, items: [...cart], total, date: new Date().toLocaleString() });
-    localStorage.setItem('sbl_orders', JSON.stringify(orders));
-
-    window.open('https://wa.me/2347061172586?text=' + message, '_blank');
-    showToast('✓ Order placed!');
-    cart = [];
-    displayCart();
-    updateCartCount();
-    saveCart();
-  }
-
-  displayCart();
-</script>
+    <script src="cart-script.js"></script>
+    <script>
+        renderCart();
+        updateCartCount();
+    </script>
 </body>
 </html>
