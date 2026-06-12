@@ -1,484 +1,783 @@
+Here is an HTML document that creates an admin dashboard for your fashion store, allowing you to manage products and view orders.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyledByLade | Fashion</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>StyledByLade | Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-:root {
-  --gold: #c9a84c;
-  --gold-light: #f0d080;
-  --black: #0a0a0a;
-  --dark: #111;
-  --grey: #1e1e1e;
-  --light: #f8f5f0;
-  --text: #333;
-}
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --black: #0a0a0a;
+    --dark: #111;
+    --grey: #1e1e1e;
+    --light: #f8f5f0;
+    --text: #333;
+    --admin-bg: #0c0c0c;
+    --card-bg: #1a1a1a;
+    --border-dim: #2c2c2c;
+  }
 
-body { background: var(--light); color: var(--text); font-family: 'Poppins', sans-serif; }
+  body {
+    background: var(--admin-bg);
+    font-family: 'Poppins', sans-serif;
+    color: #e0e0e0;
+    line-height: 1.5;
+  }
 
-header {
-  background: var(--black);
-  padding: 18px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid #c9a84c33;
-}
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: var(--gold);
-  letter-spacing: 2px;
-}
-nav a {
-  color: #ccc;
-  text-decoration: none;
-  font-size: 13px;
-  margin-left: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-nav a:hover { color: var(--gold); }
-.cart-count {
-  background: var(--gold);
-  color: var(--black);
-  border-radius: 50%;
-  padding: 1px 6px;
-  font-size: 11px;
-  font-weight: bold;
-  margin-left: 3px;
-}
+  /* Admin Header */
+  .admin-header {
+    background: var(--black);
+    padding: 16px 30px;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .badge-admin {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+  }
+  .nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--gold);
+  }
 
-.hero {
-  background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4)),
-              url("https://images.unsplash.com/photo-1496747611176-843222e1e57c") center/cover;
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  padding: 20px;
-}
-.hero-inner { max-width: 700px; }
-.hero-tag {
-  font-size: 12px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 20px;
-}
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 52px;
-  line-height: 1.15;
-  margin-bottom: 20px;
-}
-.hero p { font-size: 16px; color: #ddd; margin-bottom: 35px; font-weight: 300; }
-.btn-gold {
-  background: var(--gold);
-  color: var(--black);
-  border: none;
-  padding: 14px 35px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-}
-.btn-gold:hover { background: var(--gold-light); transform: scale(1.03); }
+  /* Layout */
+  .dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 25px;
+  }
 
-.marquee-strip {
-  background: var(--gold);
-  color: var(--black);
-  padding: 10px 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.marquee-inner {
-  display: inline-block;
-  animation: marquee 20s linear infinite;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-@keyframes marquee {
-  from { transform: translateX(100vw); }
-  to   { transform: translateX(-100%); }
-}
+  /* Stats row */
+  .stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 45px;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px 28px;
+    flex: 1;
+    min-width: 180px;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+  .stat-card h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: white;
+  }
 
-.section {
-  padding: 60px 20px;
-  text-align: center;
-}
-.section-tag {
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-.section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  margin-bottom: 40px;
-  color: var(--black);
-}
+  /* Section cards */
+  .admin-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    margin-bottom: 50px;
+    overflow: hidden;
+    border: 1px solid var(--border-dim);
+  }
+  .card-header {
+    background: #111;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .card-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .btn-secondary:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: scale(0.98);
+  }
+  .btn-danger {
+    background: #aa2e2e;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .btn-danger:hover {
+    background: #c03939;
+  }
 
-.products {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 25px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-@media(min-width:700px) {
-  .products { grid-template-columns: repeat(3, 1fr); }
-}
+  /* Product Table & Grid */
+  .product-admin-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .product-grid-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border-dim);
+  }
+  .product-row {
+    background: var(--card-bg);
+    display: grid;
+    grid-template-columns: 70px 1.5fr 100px 140px 100px;
+    align-items: center;
+    padding: 14px 20px;
+    gap: 15px;
+    transition: background 0.1s;
+  }
+  .product-row:hover {
+    background: #222;
+  }
+  .product-thumb {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #2a2a2a;
+  }
+  .product-name-field {
+    font-weight: 500;
+  }
+  .product-price-field {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .edit-input {
+    background: #2c2c2c;
+    border: 1px solid #444;
+    padding: 8px 10px;
+    color: white;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+  }
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .small-btn {
+    padding: 5px 12px;
+    font-size: 11px;
+    background: #2c2c2c;
+    border: none;
+    color: #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .small-btn.edit {
+    background: #2c5e2c;
+    color: white;
+  }
+  .small-btn.save {
+    background: var(--gold);
+    color: black;
+  }
+  .small-btn.delete {
+    background: #5e2c2c;
+  }
 
-.product {
-  background: white;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
-  position: relative;
-}
-.product:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+  /* Add product form */
+  .add-product-form {
+    background: #121212;
+    padding: 20px 28px;
+    border-top: 1px solid var(--border-dim);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+  }
+  .add-product-form input, .add-product-form textarea {
+    background: #252525;
+    border: 1px solid #3a3a3a;
+    padding: 10px 12px;
+    color: white;
+    border-radius: 12px;
+    font-size: 13px;
+    flex: 1;
+    min-width: 160px;
+  }
+  .add-product-form input:focus {
+    border-color: var(--gold);
+    outline: none;
+  }
 
-.product-badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: var(--gold);
-  color: var(--black);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 2px;
-}
+  /* Orders table */
+  .orders-container {
+    padding: 20px;
+  }
+  .order-item {
+    background: #131313;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    border-left: 4px solid var(--gold);
+  }
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #2c2c2c;
+    padding-bottom: 8px;
+  }
+  .order-customer {
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .order-date {
+    color: #aaa;
+    font-size: 12px;
+  }
+  .order-items-list {
+    padding: 10px 0;
+    font-size: 13px;
+    list-style: none;
+  }
+  .order-items-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .order-total {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--gold);
+    margin-top: 12px;
+  }
 
-.product img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  display: block;
-}
-.product-info { padding: 20px; text-align: left; }
-.product-info h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: var(--black);
-}
-.product-price {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--gold);
-  margin-bottom: 15px;
-}
-.btn-cart {
-  width: 100%;
-  background: var(--black);
-  color: white;
-  border: none;
-  padding: 12px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-cart:hover { background: var(--gold); color: var(--black); }
-
-.cart-section {
-  background: var(--black);
-  color: white;
-  padding: 60px 20px;
-}
-.cart-section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  color: var(--gold);
-  margin-bottom: 30px;
-  text-align: center;
-}
-.cart-box {
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--grey);
-  border-radius: 4px;
-  padding: 25px;
-}
-#cartItems p {
-  border-bottom: 1px solid #333;
-  padding: 10px 0;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-}
-#total {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  color: var(--gold);
-  text-align: right;
-  margin: 20px 0;
-}
-.cart-empty {
-  color: #888;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 14px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px 15px;
-  margin: 8px 0;
-  border: 1px solid #333;
-  background: #1a1a1a;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  border-radius: 2px;
-  outline: none;
-  transition: border 0.2s;
-}
-input:focus, textarea:focus { border-color: var(--gold); }
-input::placeholder, textarea::placeholder { color: #666; }
-textarea { height: 100px; resize: none; }
-
-.about-section {
-  background: white;
-  padding: 80px 20px;
-  text-align: center;
-}
-.about-section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: var(--black);
-}
-.about-section p {
-  max-width: 550px;
-  margin: 0 auto;
-  color: #666;
-  line-height: 1.8;
-  font-size: 15px;
-}
-.gold-line {
-  width: 50px;
-  height: 2px;
-  background: var(--gold);
-  margin: 20px auto;
-}
-
-footer {
-  background: var(--black);
-  color: #666;
-  text-align: center;
-  padding: 30px 20px;
-  font-size: 13px;
-  letter-spacing: 1px;
-}
-footer span { color: var(--gold); }
-.admin-link {
-  display: inline-block;
-  margin-top: 15px;
-  color: #333;
-  font-size: 11px;
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-.admin-link:hover { color: var(--gold); }
-
-#toast {
-  display: none;
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--gold);
-  color: var(--black);
-  padding: 12px 25px;
-  border-radius: 2px;
-  font-weight: 600;
-  font-size: 13px;
-  z-index: 9999;
-  letter-spacing: 1px;
-}
+  .toast-notify {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #0a0a0a;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 2000;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: none;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #888;
+  }
+  @media (max-width: 750px) {
+    .product-row {
+      grid-template-columns: 60px 1fr 80px;
+      gap: 12px;
+    }
+    .action-buttons {
+      grid-column: span 3;
+      justify-content: flex-start;
+    }
+    .product-row .product-price-field,
+    .product-row .product-name-field {
+      font-size: 13px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">StyledByLade</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#cart">Cart 🛒<span class="cart-count" id="cartCount">0</span></a>
-  </nav>
+<header class="admin-header">
+  <div class="logo">StyledByLade <span class="badge-admin">Admin Panel</span></div>
+  <div class="nav-links">
+    <a href="#" class="active" data-tab="products">📦 Manage Products</a>
+    <a href="#" data-tab="orders">📋 Customer Orders</a>
+    <a href="#" data-tab="insights">📊 Overview</a>
+  </div>
 </header>
 
-<section class="hero" id="home">
-  <div class="hero-inner">
-    <p class="hero-tag">✦ New Collection 2026 ✦</p>
-    <h1>Where Elegance Meets Confidence</h1>
-    <p>Premium fashion designed for every occasion.</p>
-    <button class="btn-gold" onclick="location.href='#shop'">Shop Now</button>
+<div class="dashboard-container" id="dashboardContainer">
+  <!-- Overview / stats section (dynamic but persists) -->
+  <div id="insightsTab" class="tab-content">
+    <div class="stats-row" id="statsRow">
+      <!-- stats injected via JS -->
+    </div>
+    <div class="admin-card">
+      <div class="card-header">
+        <h2>⚡ Quick Actions</h2>
+      </div>
+      <div style="padding: 28px; display: flex; gap: 20px; flex-wrap: wrap;">
+        <button class="btn-primary" id="quickAddSample">+ Add Sample Product</button>
+        <button class="btn-secondary" id="quickResetDefault">↻ Reset to Default Products</button>
+        <button class="btn-secondary" id="clearAllOrders">🗑 Clear All Orders</button>
+      </div>
+      <div style="padding: 0 28px 28px 28px; font-size: 13px; color:#aaa">
+        <p>✨ StyledByLade inventory manager — edit products, view orders, sync across store.</p>
+      </div>
+    </div>
   </div>
-</section>
 
-<div class="marquee-strip">
-  <span class="marquee-inner">
-    ✦ FREE DELIVERY ON ORDERS ABOVE ₦50,000 &nbsp;&nbsp;&nbsp;
-    ✦ NEW ARRIVALS EVERY WEEK &nbsp;&nbsp;&nbsp;
-    ✦ PREMIUM QUALITY GUARANTEED &nbsp;&nbsp;&nbsp;
-    ✦ ORDER VIA WHATSAPP &nbsp;&nbsp;&nbsp;
-    ✦ FREE DELIVERY ON ORDERS ABOVE ₦50,000 &nbsp;&nbsp;&nbsp;
-    ✦ NEW ARRIVALS EVERY WEEK &nbsp;&nbsp;&nbsp;
-  </span>
+  <!-- Products Management Tab -->
+  <div id="productsTab" class="tab-content" style="display: none;">
+    <div class="admin-card">
+      <div class="card-header">
+        <h2>✧ Edit Collection ✧</h2>
+        <button class="btn-secondary" id="refreshProductsBtn">⟳ Refresh</button>
+      </div>
+      <div class="product-admin-table">
+        <div id="adminProductsList" class="product-grid-admin"></div>
+      </div>
+      <div class="add-product-form">
+        <input type="text" id="newProdName" placeholder="Product name (e.g. Silk Blazer)" autocomplete="off">
+        <input type="number" id="newProdPrice" placeholder="Price (₦)" value="22000">
+        <input type="text" id="newProdImg" placeholder="Image URL (unsplash or any)">
+        <input type="text" id="newProdBadge" placeholder="Badge (e.g. New, Limited)" value="New">
+        <button class="btn-primary" id="addProductBtn">+ Add Product</button>
+      </div>
+      <div style="padding: 12px 28px 24px; font-size: 12px; color:#aaa;">
+        💡 Tip: Changes reflect immediately on the main store page (localStorage sync).
+      </div>
+    </div>
+  </div>
+
+  <!-- Orders Tab -->
+  <div id="ordersTab" class="tab-content" style="display: none;">
+    <div class="admin-card">
+      <div class="card-header">
+        <h2>📜 Recent Orders</h2>
+        <button class="btn-secondary" id="refreshOrdersBtn">⟳ Refresh</button>
+      </div>
+      <div id="ordersListContainer" class="orders-container">
+        <!-- orders injected -->
+      </div>
+    </div>
+  </div>
 </div>
 
-<section class="section" id="shop">
-  <p class="section-tag">✦ Curated For You ✦</p>
-  <h2>Our Collection</h2>
-  <div class="products" id="productsGrid"></div>
-</section>
-
-<section class="cart-section" id="cart">
-  <h2>Your Cart</h2>
-  <div class="cart-box">
-    <div id="cartItems"><p class="cart-empty">Your cart is empty</p></div>
-    <h3 id="total">Total: ₦0</h3>
-    <input id="name" placeholder="Full Name">
-    <input id="phone" placeholder="Phone Number">
-    <textarea id="address" placeholder="Delivery Address"></textarea>
-    <button class="btn-gold" style="width:100%;margin-top:10px" onclick="sendOrder()">
-      Order Via WhatsApp
-    </button>
-  </div>
-</section>
-
-<section class="about-section">
-  <p class="section-tag">✦ Our Story ✦</p>
-  <h2>About StyledByLade</h2>
-  <div class="gold-line"></div>
-  <p>StyledByLade creates elegant outfits that help customers express confidence, beauty and style. Every piece is carefully curated to make you feel your absolute best.</p>
-</section>
-
-<footer>
-  © 2026 <span>StyledByLade</span> — All Rights Reserved
-  <br>
-  <a href="admin.html" class="admin-link">Admin</a>
-</footer>
-
-<div id="toast"></div>
+<div id="toastMsg" class="toast-notify">✔️ Action completed</div>
 
 <script>
-  const defaultProducts = [
-    { id:1, name:"Luxury Gown",   price:25000, img:"https://images.unsplash.com/photo-1496747611176-843222e1e57c", badge:"Bestseller" },
-    { id:2, name:"Elegant Dress", price:18000, img:"https://images.unsplash.com/photo-1483985988355-763728e1935b", badge:"New" },
-    { id:3, name:"Custom Outfit", price:35000, img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f", badge:"Premium" }
+  // ----- DATA KEYS (sync with main store)
+  const STORAGE_PRODUCTS = 'sbl_products';
+  const STORAGE_ORDERS = 'sbl_orders';
+  
+  // Default products matching store's style but extended
+  const DEFAULT_PRODUCTS = [
+    { id: 1, name: "Luxury Gown", price: 25000, img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c", badge: "Bestseller" },
+    { id: 2, name: "Elegant Dress", price: 18000, img: "https://images.unsplash.com/photo-1483985988355-763728e1935b", badge: "New" },
+    { id: 3, name: "Custom Outfit", price: 35000, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f", badge: "Premium" }
   ];
 
+  // Helper Functions
   function getProducts() {
-    const saved = localStorage.getItem('sbl_products');
-    return saved ? JSON.parse(saved) : defaultProducts;
+    const saved = localStorage.getItem(STORAGE_PRODUCTS);
+    if (saved) return JSON.parse(saved);
+    return [...DEFAULT_PRODUCTS];
   }
 
-  function renderProducts() {
+  function saveProducts(products) {
+    localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(products));
+  }
+
+  function getOrders() {
+    const saved = localStorage.getItem(STORAGE_ORDERS);
+    return saved ? JSON.parse(saved) : [];
+  }
+
+  function saveOrders(orders) {
+    localStorage.setItem(STORAGE_ORDERS, JSON.stringify(orders));
+  }
+
+  function showToast(msg, isError = false) {
+    const toast = document.getElementById('toastMsg');
+    toast.textContent = msg;
+    toast.style.backgroundColor = isError ? '#aa2e2e' : 'var(--gold)';
+    toast.style.color = isError ? 'white' : 'var(--black)';
+    toast.style.display = 'block';
+    setTimeout(() => {
+      toast.style.display = 'none';
+      toast.style.backgroundColor = 'var(--gold)';
+    }, 2300);
+  }
+
+  // Update stats on overview tab (product count, orders count, total revenue)
+  function updateStatsTab() {
     const products = getProducts();
-    const grid = document.getElementById('productsGrid');
-    grid.innerHTML = '';
-    products.forEach(p => {
-      grid.innerHTML += `
-        <div class="product">
-          ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f'">
-          <div class="product-info">
-            <h3>${p.name}</h3>
-            <p class="product-price">₦${p.price.toLocaleString()}</p>
-            <button class="btn-cart" onclick="addCart('${p.name}', ${p.price})">Add To Cart</button>
+    const orders = getOrders();
+    const totalRevenue = orders.reduce((sum, ord) => sum + (ord.total || 0), 0);
+    const statsHtml = `
+      <div class="stat-card"><h4>Total Products</h4><div class="stat-number">${products.length}</div></div>
+      <div class="stat-card"><h4>Orders Placed</h4><div class="stat-number">${orders.length}</div></div>
+      <div class="stat-card"><h4>Total Revenue</h4><div class="stat-number">₦${totalRevenue.toLocaleString()}</div></div>
+      <div class="stat-card"><h4>Pending Actions</h4><div class="stat-number">✨ ${orders.filter(o => o.status !== 'completed').length || 0}</div></div>
+    `;
+    const statsRow = document.getElementById('statsRow');
+    if(statsRow) statsRow.innerHTML = statsHtml;
+  }
+
+  // Render products in admin table (editable inline)
+  function renderAdminProducts() {
+    const products = getProducts();
+    const container = document.getElementById('adminProductsList');
+    if (!container) return;
+    if (!products.length) {
+      container.innerHTML = '<div class="empty-state">No products found. Add some!</div>';
+      return;
+    }
+    let html = '';
+    products.forEach((prod, idx) => {
+      html += `
+        <div class="product-row" data-prod-id="${prod.id}" data-index="${idx}">
+          <img class="product-thumb" src="${prod.img}" alt="${prod.name}" onerror="this.src='https://images.unsplash.com/photo-1496747611176-843222e1e57c'">
+          <div class="product-name-field">
+            <span class="display-name">${escapeHtml(prod.name)}</span>
+            <input class="edit-input edit-name" style="display:none;" value="${escapeHtml(prod.name)}">
           </div>
-        </div>`;
+          <div class="product-price-field">
+            <span class="display-price">₦${prod.price.toLocaleString()}</span>
+            <input class="edit-input edit-price" style="display:none;" value="${prod.price}">
+          </div>
+          <div>
+            <span class="display-badge" style="background:#2c2c2c; padding:2px 8px; border-radius:20px; font-size:11px;">${prod.badge || '—'}</span>
+            <input class="edit-input edit-badge" style="display:none; margin-top:5px;" value="${prod.badge || ''}">
+          </div>
+          <div class="action-buttons">
+            <button class="small-btn edit" onclick="enterEditMode(this, ${idx})">✏️ Edit</button>
+            <button class="small-btn save" style="display:none;" onclick="saveProductEdit(this, ${idx})">💾 Save</button>
+            <button class="small-btn delete" onclick="deleteProduct(${prod.id})">🗑 Del</button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  // Helper HTML escape
+  function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if(m === '&') return '&amp;';
+      if(m === '<') return '&lt;';
+      if(m === '>') return '&gt;';
+      return m;
     });
   }
 
-  let cart = [];
+  window.enterEditMode = (btn, idx) => {
+    const row = btn.closest('.product-row');
+    const displayName = row.querySelector('.display-name');
+    const displayPrice = row.querySelector('.display-price');
+    const displayBadgeSpan = row.querySelector('.display-badge');
+    const editName = row.querySelector('.edit-name');
+    const editPrice = row.querySelector('.edit-price');
+    const editBadge = row.querySelector('.edit-badge');
+    const editBtn = row.querySelector('.small-btn.edit');
+    const saveBtn = row.querySelector('.small-btn.save');
+    if(displayName) displayName.style.display = 'none';
+    if(displayPrice) displayPrice.style.display = 'none';
+    if(displayBadgeSpan) displayBadgeSpan.style.display = 'none';
+    if(editName) editName.style.display = 'block';
+    if(editPrice) editPrice.style.display = 'block';
+    if(editBadge) editBadge.style.display = 'block';
+    if(editBtn) editBtn.style.display = 'none';
+    if(saveBtn) saveBtn.style.display = 'inline-block';
+  };
 
-  function addCart(name, price) {
-    cart.push({ name, price });
-    displayCart();
-    document.getElementById('cartCount').textContent = cart.length;
-    showToast('✦ Added to cart!');
-  }
+  window.saveProductEdit = (btn, idx) => {
+    const products = getProducts();
+    if (!products[idx]) return;
+    const row = btn.closest('.product-row');
+    const editName = row.querySelector('.edit-name');
+    const editPrice = row.querySelector('.edit-price');
+    const editBadge = row.querySelector('.edit-badge');
+    const newName = editName ? editName.value.trim() : products[idx].name;
+    let newPrice = parseFloat(editPrice ? editPrice.value : products[idx].price);
+    if (isNaN(newPrice)) newPrice = products[idx].price;
+    const newBadge = editBadge ? editBadge.value.trim() : products[idx].badge;
+    if (newName) products[idx].name = newName;
+    products[idx].price = newPrice;
+    products[idx].badge = newBadge || '';
+    saveProducts(products);
+    renderAdminProducts();
+    // also optionally re-render store? but store also reads same localstorage, but we can update overview stats
+    updateStatsTab();
+    showToast(`✅ "${newName}" updated`);
+  };
 
-  function displayCart() {
-    const items = document.getElementById('cartItems');
-    let total = 0;
-    if (cart.length === 0) {
-      items.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-    } else {
-      items.innerHTML = '';
-      cart.forEach((p, i) => {
-        items.innerHTML += `<p><span>${p.name}</span><span>₦${p.price.toLocaleString()} <span style="color:#c00;cursor:pointer;margin-left:10px" onclick="removeCart(${i})">✕</span></span></p>`;
-        total += p.price;
-      });
+  window.deleteProduct = (id) => {
+    let products = getProducts();
+    const newProducts = products.filter(p => p.id !== id);
+    if (newProducts.length === products.length) {
+      showToast("Product not found", true);
+      return;
     }
-    document.getElementById('total').textContent = 'Total: ₦' + total.toLocaleString();
+    saveProducts(newProducts);
+    renderAdminProducts();
+    updateStatsTab();
+    showToast(`🗑 Product removed from collection`);
+  };
+
+  // Add product
+  function addNewProduct() {
+    const nameInput = document.getElementById('newProdName');
+    const priceInput = document.getElementById('newProdPrice');
+    const imgInput = document.getElementById('newProdImg');
+    const badgeInput = document.getElementById('newProdBadge');
+    const name = nameInput.value.trim();
+    const price = parseFloat(priceInput.value);
+    if (!name || isNaN(price) || price <= 0) {
+      showToast("Please enter valid name and price", true);
+      return;
+    }
+    let imgUrl = imgInput.value.trim();
+    if (!imgUrl) imgUrl = "https://images.unsplash.com/photo-1496747611176-843222e1e57c";
+    const badge = badgeInput.value.trim() || "New";
+    const products = getProducts();
+    const newId = Date.now();
+    const newProduct = { id: newId, name: name, price: price, img: imgUrl, badge: badge };
+    products.push(newProduct);
+    saveProducts(products);
+    renderAdminProducts();
+    updateStatsTab();
+    nameInput.value = '';
+    priceInput.value = '25000';
+    imgInput.value = '';
+    badgeInput.value = 'Limited';
+    showToast(`✨ ${name} added to collection!`);
   }
 
-  function removeCart(i) {
-    cart.splice(i, 1);
-    displayCart();
-    document.getElementById('cartCount').textContent = cart.length;
+  // Render orders
+  function renderOrders() {
+    const orders = getOrders();
+    const container = document.getElementById('ordersListContainer');
+    if (!container) return;
+    if (orders.length === 0) {
+      container.innerHTML = '<div class="empty-state">📭 No orders placed yet. Orders from store will appear here.</div>';
+      return;
+    }
+    let html = '';
+    [...orders].reverse().forEach((order, idx) => {
+      const itemsList = order.items || [];
+      let itemsHtml = '';
+      itemsList.forEach(item => {
+        itemsHtml += `<li><span>${escapeHtml(item.name)}</span><span>₦${(item.price || 0).toLocaleString()}</span></li>`;
+      });
+      html += `
+        <div class="order-item">
+          <div class="order-header">
+            <span class="order-customer">👤 ${escapeHtml(order.name || 'Anonymous')}</span>
+            <span class="order-date">📅 ${order.date || new Date().toLocaleString()}</span>
+          </div>
+          <div><strong>📞 Phone:</strong> ${escapeHtml(order.phone || '—')}</div>
+          <div><strong>🏠 Address:</strong> ${escapeHtml(order.address || '—')}</div>
+          <ul class="order-items-list">${itemsHtml || '<li>No items</li>'}</ul>
+          <div class="order-total">Total: ₦${(order.total || 0).toLocaleString()}</div>
+          <div style="margin-top:12px; text-align:right;">
+            <button class="small-btn delete" onclick="deleteOrder(${idx})">🗑 Remove Order</button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
   }
 
-  function sendOrder() {
-    if (cart.length === 0) { showToast('Your cart is empty!'); return; }
-    const name    = document.getElementById('name').value;
-    const phone   = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
-    if (!name || !phone || !address) { showToast('Please fill all fields!'); return; }
+  window.deleteOrder = (index) => {
+    let orders = getOrders();
+    // careful: reverse rendering uses reversed list, but we delete based on original index from list.
+    // Actually getOrders returns original order, but in render we reversed. However we can do proper: get orders, delete by index (original)
+    // Better: we pass order unique id. Simpler: delete by timestamp? but using original index.
+    if (index >= 0 && index < orders.length) {
+      orders.splice(index, 1);
+      saveOrders(orders);
+      renderOrders();
+      updateStatsTab();
+      showToast("Order removed");
+    } else {
+      // fallback
+      let ordersList = getOrders();
+      if (ordersList.length && confirm('Delete most recent order?')) {
+        ordersList.pop();
+        saveOrders(ordersList);
+        renderOrders();
+        updateStatsTab();
+        showToast("Order deleted");
+      }
+    }
+  };
 
-    let message = `Hello StyledByLade!%0A%0ACustomer: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0AOrder:%0A`;
-    let total = 0;
-    cart.forEach(p => { message += `${p.name} - ₦${p.price.toLocaleString()}%0A`; total += p.price; });
-    message += `%0ATotal: ₦${total.toLocaleString()}`;
+  window.clearAllOrdersGlobal = () => {
+    if (confirm("⚠️ Delete ALL orders permanently?")) {
+      saveOrders([]);
+      renderOrders();
+      updateStatsTab();
+      showToast("All orders cleared.");
+    }
+  };
 
-    const orders = JSON.parse(localStorage.getItem('sbl_orders') || '[]');
-    orders.push({ name, phone, address, items: [...cart], total, date: new Date().toLocaleString() });
-    localStorage.setItem('sbl_orders', JSON.stringify(orders));
+  window.resetToDefaultProducts = () => {
+    if (confirm("Reset product catalog to default (3 items)? Current products will be lost.")) {
+      saveProducts([...DEFAULT_PRODUCTS]);
+      renderAdminProducts();
+      updateStatsTab();
+      showToast("Products restored to default collection.");
+    }
+  };
 
-    window.open('https://wa.me/2347061172586?text=' + message, '_blank');
+  // Quick add sample
+  function quickSampleProduct() {
+    const products = getProducts();
+    const sample = {
+      id: Date.now(),
+      name: "Signature Blazer",
+      price: 45500,
+      img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b",
+      badge: "Limited"
+    };
+    products.push(sample);
+    saveProducts(products);
+    renderAdminProducts();
+    updateStatsTab();
+    showToast("➕ Sample product added");
   }
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.style.display = 'block';
-    setTimeout(() => t.style.display = 'none', 2500);
+  // Tabs navigation
+  const tabs = document.querySelectorAll('.nav-links a');
+  const insightsDiv = document.getElementById('insightsTab');
+  const productsDiv = document.getElementById('productsTab');
+  const ordersDiv = document.getElementById('ordersTab');
+
+  function activateTab(tabId) {
+    insightsDiv.style.display = 'none';
+    productsDiv.style.display = 'none';
+    ordersDiv.style.display = 'none';
+    if (tabId === 'products') productsDiv.style.display = 'block';
+    else if (tabId === 'orders') ordersDiv.style.display = 'block';
+    else insightsDiv.style.display = 'block';
+    // Update active link style
+    tabs.forEach(link => {
+      const tabVal = link.getAttribute('data-tab');
+      if ((tabId === 'products' && tabVal === 'products') ||
+          (tabId === 'orders' && tabVal === 'orders') ||
+          (tabId === 'insights' && tabVal === 'insights')) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
   }
 
-  renderProducts();
+  tabs.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = link.getAttribute('data-tab');
+      if (tab === 'products') {
+        renderAdminProducts();
+        activateTab('products');
+      } else if (tab === 'orders') {
+        renderOrders();
+        activateTab('orders');
+      } else {
+        updateStatsTab();
+        activateTab('insights');
+      }
+    });
+  });
+
+  // Buttons event handlers
+  document.getElementById('addProductBtn')?.addEventListener('click', addNewProduct);
+  document.getElementById('refreshProductsBtn')?.addEventListener('click', () => { renderAdminProducts(); showToast("Products reloaded"); });
+  document.getElementById('refreshOrdersBtn')?.addEventListener('click', () => { renderOrders(); showToast("Orders refreshed"); });
+  document.getElementById('quickAddSample')?.addEventListener('click', quickSampleProduct);
+  document.getElementById('quickResetDefault')?.addEventListener('click', resetToDefaultProducts);
+  document.getElementById('clearAllOrders')?.addEventListener('click', clearAllOrdersGlobal);
+
+  // Initial load: show insights
+  updateStatsTab();
+  renderAdminProducts();  // pre-render but hidden until products tab open
+  renderOrders();
+  activateTab('insights');
 </script>
 </body>
 </html>
+```
