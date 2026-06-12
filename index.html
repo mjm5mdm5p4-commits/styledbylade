@@ -66,41 +66,6 @@ nav a:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
   margin-left: 3px;
 }
 
-/* ===== SUBTLE ADMIN LINK - HIDDEN IN PLAIN SIGHT ===== */
-/* Very small, discreet, blends with the theme - only you will know */
-.subtle-admin {
-  color: #555 !important;
-  font-size: 10px !important;
-  letter-spacing: 0.5px !important;
-  padding: 4px 6px !important;
-  margin-left: 8px !important;
-  background: transparent !important;
-  border: none !important;
-  opacity: 0.55 !important;
-  transition: opacity 0.2s !important;
-}
-.subtle-admin:hover {
-  opacity: 1 !important;
-  color: var(--gold) !important;
-  background: transparent !important;
-}
-
-/* Tiny admin link in footer - almost invisible but clickable */
-.tiny-admin-footer {
-  display: inline-block;
-  margin-top: 12px;
-  color: #444 !important;
-  font-size: 9px !important;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  opacity: 0.4;
-  transition: opacity 0.2s;
-}
-.tiny-admin-footer:hover {
-  opacity: 0.8;
-  color: var(--gold) !important;
-}
-
 .hero {
   background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4)),
               url("https://images.unsplash.com/photo-1496747611176-843222e1e57c") center/cover;
@@ -375,11 +340,6 @@ footer span { color: var(--gold); }
     <a href="#home">HOME</a>
     <a href="#shop">SHOP</a>
     <a href="#cart">CART 🛒<span class="cart-count" id="cartCount">0</span></a>
-    <!-- ============================================= -->
-    <!-- SUBTLE ADMIN LINK - Very small, blends in     -->
-    <!-- Regular customers won't notice it             -->
-    <!-- ============================================= -->
-    <a href="admin.html" class="subtle-admin" title="admin">⚙️</a>
   </nav>
 </header>
 
@@ -430,12 +390,6 @@ footer span { color: var(--gold); }
 
 <footer>
   © 2026 <span>StyledByLade</span> — All Rights Reserved
-  <br>
-  <!-- ============================================= -->
-  <!-- TINY ADMIN LINK IN FOOTER - almost invisible   -->
-  <!-- Only you know it's there!                      -->
-  <!-- ============================================= -->
-  <a href="admin.html" class="tiny-admin-footer">[ admin ]</a>
 </footer>
 
 <div id="toast"></div>
