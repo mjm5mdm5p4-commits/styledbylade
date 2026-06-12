@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyledByLade | Shop</title>
+    <title>StyledByLade | Inspiration</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,22 +12,24 @@
         <div class="logo">StyledByLade</div>
         <nav>
             <a href="index.html">HOME</a>
-            <a href="shop.html" class="active">SHOP</a>
-            <a href="cart.html">CART <span class="cart-count" id="cartCount">0</span></a>
+            <a href="shop.html" class="active">INSPIRATION</a>
+            <a href="index.html#contact">CONTACT</a>
         </nav>
     </header>
 
     <section class="section">
-        <p class="section-tag">✦ Curated For You ✦</p>
-        <h2>Our Collection</h2>
+        <p class="section-tag">✦ Styles I Can Sew For You ✦</p>
+        <h2>Inspiration Gallery</h2>
+        <p style="max-width:700px; margin:1rem auto 2rem;">Browse styles below or send your own picture/idea</p>
 
-        <div class="filter-buttons">
-            <button onclick="filterProducts('all')" class="btn-gold active">All</button>
-            <button onclick="filterProducts('bridal')" class="btn-gold">Bridal</button>
-            <button onclick="filterProducts('evening')" class="btn-gold">Evening</button>
+        <div class="products" id="inspirationGrid"></div>
+
+        <div style="text-align:center; margin:4rem 0;">
+            <button onclick="window.open('https://wa.me/2348064905466?text=Hi%20StyledByLade%2C%20I%20have%20a%20design%20I%20want%20you%20to%20sew', '_blank')" 
+                    class="btn-gold" style="padding:1rem 3rem; font-size:1.2rem;">
+                Send Your Own Style / Idea
+            </button>
         </div>
-
-        <div class="products" id="productsGrid"></div>
     </section>
 
     <footer>
@@ -36,51 +38,33 @@
         <br><small><a href="admin.html" style="color:#aaa; font-size:0.75rem; text-decoration:none; opacity:0.6;">👤</a></small>
     </footer>
 
-    <script src="cart-script.js"></script>
     <script>
-        const defaultProducts = [
-            { id:1, name:"Emerald Luxury Gown", price:450000, img:"https://picsum.photos/id/1015/600/800", badge:"Bestseller", category:"bridal" },
-            { id:2, name:"Crimson Evening Dress", price:380000, img:"https://picsum.photos/id/1027/600/800", badge:"New", category:"evening" },
-            { id:3, name:"Ivory Bridal Set", price:520000, img:"https://picsum.photos/id/106/600/800", badge:"Premium", category:"bridal" },
-            { id:4, name:"Royal Purple Gown", price:420000, img:"https://picsum.photos/id/201/600/800", badge:"", category:"evening" }
-        ];
-
-        let currentFilter = 'all';
-
-        function filterProducts(cat) {
-            currentFilter = cat;
-            document.querySelectorAll('.filter-buttons button').forEach(btn => {
-                btn.classList.toggle('active', btn.textContent.toLowerCase() === cat || (cat === 'all' && btn.textContent === 'All'));
-            });
-            renderProducts();
+        function getInspiration() {
+            return JSON.parse(localStorage.getItem('sbl_products')) || [
+                { id:1, name:"Elegant Gown", img:"https://picsum.photos/id/1015/600/800" },
+                { id:2, name:"Evening Dress", img:"https://picsum.photos/id/1027/600/800" },
+                { id:3, name:"Bridal Style", img:"https://picsum.photos/id/106/600/800" }
+            ];
         }
 
-        function renderProducts() {
-            const products = getProducts();
-            const grid = document.getElementById('productsGrid');
+        function renderGallery() {
+            const items = getInspiration();
+            const grid = document.getElementById('inspirationGrid');
             grid.innerHTML = '';
 
-            products.filter(p => currentFilter === 'all' || p.category === currentFilter).forEach(p => {
+            items.forEach(item => {
                 grid.innerHTML += `
                     <div class="product">
-                        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-                        <img src="${p.img}" alt="${p.name}" loading="lazy">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy">
                         <div class="product-info">
-                            <h3>${p.name}</h3>
-                            <p class="product-price">₦${p.price.toLocaleString()}</p>
-                            <button class="btn-cart" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${p.price})">Add to Cart</button>
+                            <h3>${item.name}</h3>
+                            <button onclick="window.open('https://wa.me/2348064905466?text=Hi%20StyledByLade%2C%20I%20like%20this%20style:%20${encodeURIComponent(item.name)}', '_blank')" class="btn-cart">I Want This Style</button>
                         </div>
                     </div>`;
             });
         }
 
-        function getProducts() {
-            const saved = localStorage.getItem('sbl_products');
-            return saved ? JSON.parse(saved) : defaultProducts;
-        }
-
-        renderProducts();
-        updateCartCount();
+        renderGallery();
     </script>
 </body>
-</html>
+</html>             
