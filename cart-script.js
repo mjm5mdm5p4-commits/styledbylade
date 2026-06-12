@@ -65,7 +65,7 @@ function checkoutWhatsApp() {
         msg += `- ${item.name} - ₦${item.price}%0A`;
     });
     msg += `%0ATotal: ₦${cart.reduce((sum, i) => sum + i.price, 0)}`;
-    window.open(`https://wa.me/2349117506616?text=${msg}`, '_blank');
+    window.open(`https://wa.me/2348064905466?text=${msg}`, '_blank');
 }
 
 // Global functions
