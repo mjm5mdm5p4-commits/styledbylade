@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyledByLade | Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">StyledByLade</div>
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="shop.html" class="active">SHOP</a>
+    <a href="cart.html">CART 🛒<span class="cart-count" id="cartCount">0</span></a>
+  </nav>
+</header>
+
+<section class="section">
+  <p class="section-tag">✦ Curated For You ✦</p>
+  <h2>Our Collection</h2>
+  <div class="products" id="productsGrid"></div>
+</section>
+
+<footer>
+  © 2026 <span>StyledByLade</span> — All Rights Reserved
+</footer>
+
+<script src="cart-script.js"></script>
+<script>
+  const defaultProducts = [
+    { id:1, name:"Luxury Gown",   price:25000, img:"https://images.unsplash.com/photo-1496747611176-843222e1e57c", badge:"Bestseller" },
+    { id:2, name:"Elegant Dress", price:18000, img:"https://images.unsplash.com/photo-1483985988355-763728e1935b", badge:"New" },
+    { id:3, name:"Custom Outfit", price:35000, img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f", badge:"Premium" }
+  ];
+
+  function getProducts() {
+    const saved = localStorage.getItem('sbl_products');
+    return saved ? JSON.parse(saved) : defaultProducts;
+  }
+
+  function renderProducts() {
+    const products = getProducts();
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = '';
+    products.forEach(p => {
+      grid.innerHTML += `
+        <div class="product">
+          ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+          <img src="${p.img}" alt="${p.name}">
+          <div class="product-info">
+            <h3>${escapeHtml(p.name)}</h3>
+            <p class="product-price">₦${p.price.toLocaleString()}</p>
+            <button class="btn-cart" onclick="addCart(${p.id}, '${escapeHtml(p.name)}', ${p.price})">Add To Cart</button>
+          </div>
+        </div>`;
+    });
+  }
+
+  function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if(m === '&') return '&amp;';
+      if(m === '<') return '&lt;';
+      if(m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  renderProducts();
+</script>
+</body>
+</html>
