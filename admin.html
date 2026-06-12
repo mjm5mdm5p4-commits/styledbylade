@@ -8,29 +8,9 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .admin-container { max-width: 1000px; margin: 2rem auto; padding: 2rem; }
-        .product-row { 
-            display: flex; 
-            align-items: center; 
-            gap: 1rem; 
-            padding: 1rem; 
-            background: white; 
-            margin-bottom: 1rem; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .admin-form { 
-            background: #f8f1e9; 
-            padding: 2rem; 
-            border-radius: 12px; 
-            margin-bottom: 3rem; 
-        }
-        input, select, textarea { 
-            width: 100%; 
-            padding: 12px; 
-            margin: 8px 0; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-        }
+        .product-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: white; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .admin-form { background: #f8f1e9; padding: 2rem; border-radius: 12px; margin-bottom: 3rem; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; }
         #admin-content { display: none; }
     </style>
 </head>
@@ -44,28 +24,25 @@
     </header>
 
     <section class="admin-container">
-        <h2 style="text-align:center; margin-bottom:2rem;">🔧 Add New Inspiration Photos</h2>
+        <h2 style="text-align:center; margin-bottom:2rem;">🔧 Add New Inspiration</h2>
 
-        <!-- Password Screen -->
         <div id="password-screen">
-            <div style="max-width:400px; margin:4rem auto; text-align:center; background:white; padding:3rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.1);">
+            <div style="max-width:400px; margin:4rem auto; text-align:center; background:white; padding:3rem; border-radius:12px;">
                 <h3>Admin Access</h3>
-                <p>Enter Password</p>
                 <input type="password" id="adminPassword" placeholder="Password" style="width:100%; padding:12px; margin:15px 0;">
                 <button onclick="checkPassword()" class="btn-gold" style="width:100%;">Unlock</button>
             </div>
         </div>
 
-        <!-- Admin Content -->
         <div id="admin-content">
             <div class="admin-form">
-                <h3>Add New Style / Inspiration</h3>
-                <input type="text" id="newName" placeholder="Style Name (e.g. Ankara Gown)" required>
-                <input type="text" id="newImg" placeholder="Image URL (upload photo to GitHub first)" required>
+                <h3>Add New Style</h3>
+                <input type="text" id="newName" placeholder="Style Name e.g. Teal Ankara Gown">
+                <input type="text" id="newImg" placeholder="Image URL">
                 <button onclick="addProduct()" class="btn-gold" style="width:100%; margin-top:1rem;">Add to Gallery</button>
             </div>
 
-            <h3>Current Inspiration</h3>
+            <h3>Current Styles (Click × to delete)</h3>
             <div id="adminProductList"></div>
         </div>
     </section>
@@ -78,23 +55,21 @@
         const CORRECT_PASSWORD = "Lade@2026";
 
         function checkPassword() {
-            const entered = document.getElementById('adminPassword').value;
-            if (entered === CORRECT_PASSWORD) {
+            if (document.getElementById('adminPassword').value === CORRECT_PASSWORD) {
                 document.getElementById('password-screen').style.display = 'none';
                 document.getElementById('admin-content').style.display = 'block';
                 renderAdminProducts();
             } else {
-                alert("Incorrect password!");
-                document.getElementById('adminPassword').value = '';
+                alert("Wrong password");
             }
         }
 
-        function getInspiration() {
+        function getProducts() {
             return JSON.parse(localStorage.getItem('sbl_products')) || [];
         }
 
-        function saveInspiration(items) {
-            localStorage.setItem('sbl_products', JSON.stringify(items));
+        function saveProducts(products) {
+            localStorage.setItem('sbl_products', JSON.stringify(products));
             renderAdminProducts();
         }
 
@@ -103,46 +78,45 @@
             const img = document.getElementById('newImg').value.trim();
 
             if (!name || !img) {
-                alert("Please fill both fields");
+                alert("Both name and image URL are required");
                 return;
             }
 
-            const items = getInspiration();
-            const newId = Math.max(0, ...items.map(i => i.id || 0)) + 1;
+            const products = getProducts();
+            const newId = Date.now(); // Better unique ID
 
-            items.push({ id: newId, name, img });
-            saveInspiration(items);
+            products.push({ id: newId, name, img });
+            saveProducts(products);
 
             document.getElementById('newName').value = '';
             document.getElementById('newImg').value = '';
-            alert("✅ Added to Inspiration Gallery!");
+            alert("✅ Style added successfully!");
         }
 
         function deleteProduct(id) {
-            if (!confirm("Delete this image?")) return;
-            let items = getInspiration();
-            items = items.filter(i => i.id !== id);
-            saveInspiration(items);
+            if (!confirm("Delete this style permanently?")) return;
+            let products = getProducts();
+            products = products.filter(p => p.id !== id);
+            saveProducts(products);
         }
 
         function renderAdminProducts() {
-            const items = getInspiration();
+            const products = getProducts();
             const container = document.getElementById('adminProductList');
-            container.innerHTML = '';
+            container.innerHTML = products.length === 0 ? "<p>No styles yet. Add some above.</p>" : "";
 
-            items.forEach(item => {
+            products.forEach(p => {
                 container.innerHTML += `
                     <div class="product-row">
-                        <img src="${item.img}" style="width:80px; height:80px; object-fit:cover; border-radius:8px;">
-                        <div style="flex:1;">
-                            <strong>${item.name}</strong>
-                        </div>
-                        <button onclick="deleteProduct(${item.id})" style="color:red; background:none; border:none; font-size:1.5rem; cursor:pointer;">×</button>
+                        <img src="${p.img}" style="width:80px; height:80px; object-fit:cover; border-radius:8px;">
+                        <div style="flex:1;"><strong>${p.name}</strong></div>
+                        <button onclick="deleteProduct(${p.id})" style="color:red; font-size:1.8rem; background:none; border:none; cursor:pointer;">×</button>
                     </div>`;
             });
         }
 
-        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+        // Enter key support
+        document.getElementById('adminPassword').addEventListener('keypress', e => {
             if (e.key === 'Enter') checkPassword();
         });
     </script>
