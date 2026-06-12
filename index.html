@@ -20,39 +20,6 @@
 
 body { background: var(--light); color: var(--text); font-family: 'Poppins', sans-serif; }
 
-/* ========== SUPER VISIBLE ADMIN BANNER (TOP) ========== */
-.admin-top-banner {
-  background: linear-gradient(135deg, #c9a84c, #d4af37);
-  padding: 14px 20px;
-  text-align: center;
-  border-bottom: 3px solid #fff3c9;
-  position: relative;
-  z-index: 1001;
-}
-.admin-top-banner a {
-  color: #0a0a0a;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(0,0,0,0.15);
-  padding: 8px 28px;
-  border-radius: 60px;
-  transition: all 0.2s;
-  font-family: 'Poppins', sans-serif;
-}
-.admin-top-banner a:hover {
-  background: rgba(0,0,0,0.3);
-  transform: scale(1.02);
-  letter-spacing: 3px;
-}
-.admin-top-banner span {
-  font-size: 24px;
-}
-
 header {
   background: var(--black);
   padding: 18px 30px;
@@ -75,20 +42,20 @@ header {
 nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 nav a {
   color: #ccc;
   text-decoration: none;
   font-size: 13px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: all 0.2s;
-  border-radius: 4px;
+  transition: color 0.2s;
+  border-radius: 3px;
 }
-nav a:hover { color: var(--gold); background: rgba(201,168,76,0.1); }
+nav a:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
 .cart-count {
   background: var(--gold);
   color: var(--black);
@@ -99,27 +66,45 @@ nav a:hover { color: var(--gold); background: rgba(201,168,76,0.1); }
   margin-left: 3px;
 }
 
-/* GOLD BUTTON IN NAVIGATION */
-.admin-nav-btn {
-  background: linear-gradient(135deg, #f5d97a, #c9a84c) !important;
-  color: #000000 !important;
-  font-weight: 800 !important;
-  border: 2px solid #ffdf99 !important;
-  padding: 8px 20px !important;
-  border-radius: 40px !important;
-  margin-left: 15px !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+/* ===== SUBTLE ADMIN LINK - HIDDEN IN PLAIN SIGHT ===== */
+/* Very small, discreet, blends with the theme - only you will know */
+.subtle-admin {
+  color: #555 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.5px !important;
+  padding: 4px 6px !important;
+  margin-left: 8px !important;
+  background: transparent !important;
+  border: none !important;
+  opacity: 0.55 !important;
+  transition: opacity 0.2s !important;
 }
-.admin-nav-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #ffe4a0, #dbb852) !important;
-  box-shadow: 0 4px 12px rgba(201,168,76,0.5);
+.subtle-admin:hover {
+  opacity: 1 !important;
+  color: var(--gold) !important;
+  background: transparent !important;
+}
+
+/* Tiny admin link in footer - almost invisible but clickable */
+.tiny-admin-footer {
+  display: inline-block;
+  margin-top: 12px;
+  color: #444 !important;
+  font-size: 9px !important;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+.tiny-admin-footer:hover {
+  opacity: 0.8;
+  color: var(--gold) !important;
 }
 
 .hero {
   background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.4)),
               url("https://images.unsplash.com/photo-1496747611176-843222e1e57c") center/cover;
-  height: 85vh;
+  height: 88vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,32 +339,10 @@ footer {
   color: #666;
   text-align: center;
   padding: 30px 20px;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 1px;
 }
 footer span { color: var(--gold); }
-
-/* SUPER VISIBLE ADMIN BUTTON IN FOOTER */
-.footer-admin-link {
-  display: inline-block;
-  margin-top: 22px;
-  background: linear-gradient(135deg, #c9a84c, #b8922e);
-  color: #000000 !important;
-  padding: 12px 32px !important;
-  border-radius: 60px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: 2px;
-  transition: all 0.2s;
-  border: 2px solid #ffdf99;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-.footer-admin-link:hover {
-  background: linear-gradient(135deg, #f0d080, #c9a84c);
-  transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(201,168,76,0.5);
-}
 
 #toast {
   display: none;
@@ -398,8 +361,6 @@ footer span { color: var(--gold); }
 }
 
 @media (max-width: 650px) {
-  .admin-top-banner a { font-size: 14px; padding: 6px 16px; }
-  .admin-top-banner span { font-size: 18px; }
   header { flex-direction: column; text-align: center; }
   nav { justify-content: center; }
   .hero h1 { font-size: 36px; }
@@ -408,25 +369,17 @@ footer span { color: var(--gold); }
 </head>
 <body>
 
-<!-- ============================================ -->
-<!-- 🔐 ULTRA VISIBLE ADMIN BANNER - TOP OF PAGE 🔐 -->
-<!-- ============================================ -->
-<div class="admin-top-banner">
-  <a href="admin.html">
-    <span>🔐</span> 
-    ⚡ ADMIN DASHBOARD - CLICK HERE TO MANAGE STORE ⚡ 
-    <span>👑</span>
-  </a>
-</div>
-
 <header>
   <div class="logo">StyledByLade</div>
   <nav>
     <a href="#home">HOME</a>
     <a href="#shop">SHOP</a>
     <a href="#cart">CART 🛒<span class="cart-count" id="cartCount">0</span></a>
-    <!-- GOLD ADMIN BUTTON IN MENU -->
-    <a href="admin.html" class="admin-nav-btn">👑 ADMIN PANEL</a>
+    <!-- ============================================= -->
+    <!-- SUBTLE ADMIN LINK - Very small, blends in     -->
+    <!-- Regular customers won't notice it             -->
+    <!-- ============================================= -->
+    <a href="admin.html" class="subtle-admin" title="admin">⚙️</a>
   </nav>
 </header>
 
@@ -477,9 +430,12 @@ footer span { color: var(--gold); }
 
 <footer>
   © 2026 <span>StyledByLade</span> — All Rights Reserved
-  <br><br>
-  <!-- 🔐 HUGE ADMIN BUTTON IN FOOTER - CANNOT MISS 🔐 -->
-  <a href="admin.html" class="footer-admin-link">🔐 GO TO ADMIN DASHBOARD 🔐</a>
+  <br>
+  <!-- ============================================= -->
+  <!-- TINY ADMIN LINK IN FOOTER - almost invisible   -->
+  <!-- Only you know it's there!                      -->
+  <!-- ============================================= -->
+  <a href="admin.html" class="tiny-admin-footer">[ admin ]</a>
 </footer>
 
 <div id="toast"></div>
@@ -571,7 +527,7 @@ footer span { color: var(--gold); }
     localStorage.setItem('sbl_orders', JSON.stringify(orders));
 
     window.open('https://wa.me/2347061172586?text=' + message, '_blank');
-    showToast('✓ Order sent! Admin can view orders.');
+    showToast('✓ Order placed!');
   }
 
   function showToast(msg) {
@@ -581,7 +537,6 @@ footer span { color: var(--gold); }
     setTimeout(() => t.style.display = 'none', 2500);
   }
   
-  // Save cart to localStorage for persistence
   function persistCart() {
     localStorage.setItem('sbl_cart_temp', JSON.stringify(cart));
   }
