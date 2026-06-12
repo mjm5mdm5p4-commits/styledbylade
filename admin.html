@@ -39,13 +39,12 @@
         <div class="logo">StyledByLade <span style="font-size:0.8rem; color:#666;">👤 Admin</span></div>
         <nav>
             <a href="index.html">HOME</a>
-            <a href="shop.html">SHOP</a>
-            <a href="cart.html">CART</a>
+            <a href="shop.html">INSPIRATION</a>
         </nav>
     </header>
 
     <section class="admin-container">
-        <h2 style="text-align:center; margin-bottom:2rem;">🔧 Product Management</h2>
+        <h2 style="text-align:center; margin-bottom:2rem;">🔧 Add New Inspiration Photos</h2>
 
         <!-- Password Screen -->
         <div id="password-screen">
@@ -53,29 +52,20 @@
                 <h3>Admin Access</h3>
                 <p>Enter Password</p>
                 <input type="password" id="adminPassword" placeholder="Password" style="width:100%; padding:12px; margin:15px 0;">
-                <button onclick="checkPassword()" class="btn-gold" style="width:100%;">Unlock Admin Panel</button>
+                <button onclick="checkPassword()" class="btn-gold" style="width:100%;">Unlock</button>
             </div>
         </div>
 
-        <!-- Main Admin Content (hidden until password correct) -->
+        <!-- Admin Content -->
         <div id="admin-content">
-            <!-- Add New Product -->
             <div class="admin-form">
-                <h3>Add New Product</h3>
-                <input type="text" id="newName" placeholder="Product Name" required>
-                <input type="number" id="newPrice" placeholder="Price (e.g. 450000)" required>
-                <input type="text" id="newImg" placeholder="Image URL" required>
-                <select id="newCategory">
-                    <option value="bridal">Bridal</option>
-                    <option value="evening">Evening</option>
-                </select>
-                <input type="text" id="newBadge" placeholder="Badge (Bestseller, New, Premium)">
-                
-                <button onclick="addProduct()" class="btn-gold" style="width:100%; margin-top:1rem;">Add Product</button>
+                <h3>Add New Style / Inspiration</h3>
+                <input type="text" id="newName" placeholder="Style Name (e.g. Ankara Gown)" required>
+                <input type="text" id="newImg" placeholder="Image URL (upload photo to GitHub first)" required>
+                <button onclick="addProduct()" class="btn-gold" style="width:100%; margin-top:1rem;">Add to Gallery</button>
             </div>
 
-            <!-- Current Products -->
-            <h3>Current Products</h3>
+            <h3>Current Inspiration</h3>
             <div id="adminProductList"></div>
         </div>
     </section>
@@ -94,77 +84,64 @@
                 document.getElementById('admin-content').style.display = 'block';
                 renderAdminProducts();
             } else {
-                alert("Incorrect password! Try again.");
+                alert("Incorrect password!");
                 document.getElementById('adminPassword').value = '';
             }
         }
 
-        function getProducts() {
-            return JSON.parse(localStorage.getItem('sbl_products')) || [
-                { id:1, name:"Emerald Luxury Gown", price:450000, img:"https://picsum.photos/id/1015/600/800", badge:"Bestseller", category:"bridal" },
-                { id:2, name:"Crimson Evening Dress", price:380000, img:"https://picsum.photos/id/1027/600/800", badge:"New", category:"evening" },
-                { id:3, name:"Ivory Bridal Set", price:520000, img:"https://picsum.photos/id/106/600/800", badge:"Premium", category:"bridal" }
-            ];
+        function getInspiration() {
+            return JSON.parse(localStorage.getItem('sbl_products')) || [];
         }
 
-        function saveProducts(products) {
-            localStorage.setItem('sbl_products', JSON.stringify(products));
+        function saveInspiration(items) {
+            localStorage.setItem('sbl_products', JSON.stringify(items));
             renderAdminProducts();
         }
 
         function addProduct() {
             const name = document.getElementById('newName').value.trim();
-            const price = parseInt(document.getElementById('newPrice').value);
             const img = document.getElementById('newImg').value.trim();
-            const category = document.getElementById('newCategory').value;
-            const badge = document.getElementById('newBadge').value.trim();
 
-            if (!name || !price || !img) {
-                alert("Name, Price and Image URL are required");
+            if (!name || !img) {
+                alert("Please fill both fields");
                 return;
             }
 
-            const products = getProducts();
-            const newId = Math.max(0, ...products.map(p => p.id)) + 1;
+            const items = getInspiration();
+            const newId = Math.max(0, ...items.map(i => i.id || 0)) + 1;
 
-            products.push({ id: newId, name, price, img, badge, category });
-            saveProducts(products);
+            items.push({ id: newId, name, img });
+            saveInspiration(items);
 
-            // Clear form
             document.getElementById('newName').value = '';
-            document.getElementById('newPrice').value = '';
             document.getElementById('newImg').value = '';
-            document.getElementById('newBadge').value = '';
-            alert("✅ Product added successfully!");
+            alert("✅ Added to Inspiration Gallery!");
         }
 
         function deleteProduct(id) {
-            if (!confirm("Delete this product permanently?")) return;
-            let products = getProducts();
-            products = products.filter(p => p.id !== id);
-            saveProducts(products);
+            if (!confirm("Delete this image?")) return;
+            let items = getInspiration();
+            items = items.filter(i => i.id !== id);
+            saveInspiration(items);
         }
 
         function renderAdminProducts() {
-            const products = getProducts();
+            const items = getInspiration();
             const container = document.getElementById('adminProductList');
             container.innerHTML = '';
 
-            products.forEach(p => {
+            items.forEach(item => {
                 container.innerHTML += `
                     <div class="product-row">
-                        <img src="${p.img}" style="width:80px; height:80px; object-fit:cover; border-radius:8px;">
+                        <img src="${item.img}" style="width:80px; height:80px; object-fit:cover; border-radius:8px;">
                         <div style="flex:1;">
-                            <strong>${p.name}</strong><br>
-                            ₦${p.price.toLocaleString()} • ${p.category}
-                            ${p.badge ? `<span style="background:#d4af37; padding:2px 8px; border-radius:12px; font-size:0.8rem;">${p.badge}</span>` : ''}
+                            <strong>${item.name}</strong>
                         </div>
-                        <button onclick="deleteProduct(${p.id})" style="color:red; background:none; border:none; font-size:1.5rem; cursor:pointer;">×</button>
+                        <button onclick="deleteProduct(${item.id})" style="color:red; background:none; border:none; font-size:1.5rem; cursor:pointer;">×</button>
                     </div>`;
             });
         }
 
-        // Allow pressing Enter in password field
         document.getElementById('adminPassword').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
