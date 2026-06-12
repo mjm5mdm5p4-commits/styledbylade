@@ -18,14 +18,14 @@
     </header>
 
     <section class="section">
-        <p class="section-tag">✦ Styles I Can Sew ✦</p>
+        <p class="section-tag">✦ Styles I Can Sew For You ✦</p>
         <h2>Inspiration Gallery</h2>
-        <p style="max-width:700px; margin:1rem auto 3rem;">These are examples. Send me any style you like or your own picture/idea.</p>
+        <p style="max-width:700px; margin:1rem auto 3rem;">Send me any of these styles or your own picture/idea via WhatsApp</p>
 
         <div class="products" id="inspirationGrid"></div>
 
         <div style="text-align:center; margin:4rem 0;">
-            <button onclick="window.open('https://wa.me/2348064905466?text=Hi%20StyledByLade%2C%20I%20have%20a%20design%20I%20want%20you%20to%20sew%20for%20me', '_blank')" 
+            <button onclick="window.open('https://wa.me/2348064905466?text=Hi%20StyledByLade%2C%20I%20have%20a%20style%20I%20want%20you%20to%20sew%20for%20me', '_blank')" 
                     class="btn-gold" style="padding:1rem 3rem; font-size:1.2rem;">
                 Send Your Own Style / Idea
             </button>
@@ -41,9 +41,9 @@
     <script>
         function getInspiration() {
             return JSON.parse(localStorage.getItem('sbl_products')) || [
-                { id:1, name:"Elegant Gown", img:"https://picsum.photos/id/1015/600/800" },
-                { id:2, name:"Evening Dress", img:"https://picsum.photos/id/1027/600/800" },
-                { id:3, name:"Bridal Style", img:"https://picsum.photos/id/106/600/800" }
+                { id:1, name:"Teal Ankara Peplum Gown", img:"https://picsum.photos/id/1015/600/800" },
+                { id:2, name:"Vibrant Multi Ankara Gown", img:"https://picsum.photos/id/1027/600/800" },
+                { id:3, name:"Golden Ankara Long Dress", img:"https://picsum.photos/id/106/600/800" }
             ];
         }
 
@@ -58,7 +58,9 @@
                         <img src="${item.img}" alt="${item.name}" loading="lazy">
                         <div class="product-info">
                             <h3>${item.name}</h3>
-                            <button onclick="window.open('https://wa.me/2348064905466?text=Hi%20StyledByLade%2C%20I%20like%20this%20style:%20${encodeURIComponent(item.name)}', '_blank')" class="btn-cart">I Want This Style</button>
+                            <button onclick="window.open('https://wa.me/2348064905466?text=Hi%20StyledByLade%2C%20I%20like%20this%20style:%20${encodeURIComponent(item.name)}', '_blank')" class="btn-cart">
+                                I Want This Style
+                            </button>
                         </div>
                     </div>`;
             });
