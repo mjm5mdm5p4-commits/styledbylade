@@ -26,8 +26,30 @@
             <strong>Total: <span id="total">₦0</span></strong>
         </div>
 
+        <!-- Customer Details Form -->
+        <div id="customerDetails" style="max-width: 700px; margin: 3rem auto; background: white; padding: 2rem; border-radius: 12px; display: none;">
+            <h3 style="margin-bottom: 1.5rem;">Delivery Information</h3>
+            <form id="deliveryForm">
+                <label>Full Name *</label>
+                <input type="text" id="fullName" required style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:8px;">
+
+                <label>Phone Number *</label>
+                <input type="tel" id="phoneNumber" required style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:8px;">
+
+                <label>Delivery Address *</label>
+                <textarea id="address" required rows="3" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:8px;"></textarea>
+
+                <label>Additional Notes (Optional)</label>
+                <textarea id="notes" rows="2" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:8px;"></textarea>
+
+                <button type="button" onclick="proceedToWhatsApp()" class="btn-gold" style="width:100%; margin-top:1.5rem; padding:1rem;">
+                    Send Order to WhatsApp
+                </button>
+            </form>
+        </div>
+
         <div style="text-align:center; margin-top:2rem;">
-            <button onclick="checkoutWhatsApp()" class="btn-gold" style="padding:1rem 3rem; font-size:1.1rem;">Checkout via WhatsApp</button>
+            <button onclick="showDeliveryForm()" class="btn-gold" style="padding:1rem 3rem; font-size:1.1rem;">Checkout via WhatsApp</button>
             <button onclick="clearCart()" style="margin-left:1rem; background:#ccc; color:#333;">Clear Cart</button>
         </div>
     </section>
