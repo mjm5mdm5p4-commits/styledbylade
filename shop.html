@@ -42,14 +42,13 @@
         function getInspiration() {
             let items = JSON.parse(localStorage.getItem('sbl_products')) || [];
             
-            // Better defaults - fashion focused
+            // Default Ankara styles
             if (items.length === 0) {
                 items = [
                     { id:1, name:"Teal Ankara Peplum Gown", img:"https://picsum.photos/id/1015/600/800" },
                     { id:2, name:"Vibrant Multi Ankara Gown", img:"https://picsum.photos/id/1027/600/800" },
                     { id:3, name:"Golden Ankara Long Dress", img:"https://picsum.photos/id/106/600/800" },
-                    { id:4, name:"Red Ankara Ball Gown", img:"https://picsum.photos/id/133/600/800" },
-                    { id:5, name:"Blue Ankara Off-Shoulder", img:"https://picsum.photos/id/180/600/800" }
+                    { id:4, name:"Red Ankara Ball Gown", img:"https://picsum.photos/id/133/600/800" }
                 ];
             }
             return items;
