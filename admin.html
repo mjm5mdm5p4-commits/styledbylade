@@ -44,6 +44,10 @@
 
             <h3>Current Styles (Click × to delete)</h3>
             <div id="adminProductList"></div>
+
+            <button onclick="clearAllData()" style="margin-top:2rem; background:#ff4444; color:white; padding:10px 20px; border:none; border-radius:8px; cursor:pointer;">
+                Clear All Styles
+            </button>
         </div>
     </section>
 
@@ -60,7 +64,7 @@
                 document.getElementById('admin-content').style.display = 'block';
                 renderAdminProducts();
             } else {
-                alert("Wrong password");
+                alert("Incorrect password!");
             }
         }
 
@@ -76,28 +80,32 @@
         function addProduct() {
             const name = document.getElementById('newName').value.trim();
             const img = document.getElementById('newImg').value.trim();
-
             if (!name || !img) {
-                alert("Both name and image URL are required");
+                alert("Both fields are required");
                 return;
             }
-
             const products = getProducts();
-            const newId = Date.now(); // Better unique ID
-
+            const newId = Date.now();
             products.push({ id: newId, name, img });
             saveProducts(products);
-
             document.getElementById('newName').value = '';
             document.getElementById('newImg').value = '';
-            alert("✅ Style added successfully!");
+            alert("✅ Added successfully!");
         }
 
         function deleteProduct(id) {
-            if (!confirm("Delete this style permanently?")) return;
+            if (!confirm("Delete this style?")) return;
             let products = getProducts();
             products = products.filter(p => p.id !== id);
             saveProducts(products);
+        }
+
+        function clearAllData() {
+            if (confirm("Clear ALL styles? This cannot be undone.")) {
+                localStorage.removeItem('sbl_products');
+                renderAdminProducts();
+                alert("All styles cleared!");
+            }
         }
 
         function renderAdminProducts() {
@@ -115,7 +123,6 @@
             });
         }
 
-        // Enter key support
         document.getElementById('adminPassword').addEventListener('keypress', e => {
             if (e.key === 'Enter') checkPassword();
         });
